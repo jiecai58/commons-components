@@ -1,6 +1,8 @@
 package com.cache.client;
 
 import com.cache.client.config.CaffeineProperties;
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import org.springframework.stereotype.Component;
 
 /**

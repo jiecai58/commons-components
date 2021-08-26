@@ -1,5 +1,6 @@
 package com.catchlog;
 
+import com.dto.Response;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -19,7 +20,7 @@ public class ResponseHandler {
     }
 
     public static Object handle(Class returnType, BaseException e){
-        return handle(returnType, String.valueOf(e.getErrorCode()), e.getMessage());
+        return handle(returnType, e.getErrCode(), e.getMessage());
     }
 
 

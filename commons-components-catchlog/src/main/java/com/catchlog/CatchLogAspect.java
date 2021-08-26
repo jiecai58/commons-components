@@ -1,6 +1,6 @@
 package com.catchlog;
 
-import com.exception.BaseException;
+import com.extension.BizException;
 import com.util.json.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;

@@ -1,13 +1,11 @@
 package com.cache.client;
 
+import com.cache.serializer.ProtoStuffSerializerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.DataType;
 import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.core.Cursor;
-import org.springframework.data.redis.core.RedisCallback;
-import org.springframework.data.redis.core.ScanOptions;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -1044,7 +1042,7 @@ public class RedisUtils {
 	 * @param values
 	 * @return
 	 */
-	public Long zAdd(String key, Set<TypedTuple<String>> values) {
+	public Long zAdd(String key, Set<ZSetOperations.TypedTuple<String>> values) {
 		return redisTemplate.opsForZSet().add(key, values);
 	}
 
@@ -1114,8 +1112,8 @@ public class RedisUtils {
 	 * @param end
 	 * @return
 	 */
-	public Set<TypedTuple<String>> zRangeWithScores(String key, long start,
-			long end) {
+	public Set<ZSetOperations.TypedTuple<String>> zRangeWithScores(String key, long start,
+																   long end) {
 		return redisTemplate.opsForZSet().rangeWithScores(key, start, end);
 	}
 
@@ -1143,8 +1141,8 @@ public class RedisUtils {
 	 *            最大值
 	 * @return
 	 */
-	public Set<TypedTuple<String>> zRangeByScoreWithScores(String key,
-			double min, double max) {
+	public Set<ZSetOperations.TypedTuple<String>> zRangeByScoreWithScores(String key,
+																		  double min, double max) {
 		return redisTemplate.opsForZSet().rangeByScoreWithScores(key, min, max);
 	}
 
@@ -1157,8 +1155,8 @@ public class RedisUtils {
 	 * @param end
 	 * @return
 	 */
-	public Set<TypedTuple<String>> zRangeByScoreWithScores(String key,
-			double min, double max, long start, long end) {
+	public Set<ZSetOperations.TypedTuple<String>> zRangeByScoreWithScores(String key,
+																		  double min, double max, long start, long end) {
 		return redisTemplate.opsForZSet().rangeByScoreWithScores(key, min, max,
 				start, end);
 	}
@@ -1183,8 +1181,8 @@ public class RedisUtils {
 	 * @param end
 	 * @return
 	 */
-	public Set<TypedTuple<String>> zReverseRangeWithScores(String key,
-			long start, long end) {
+	public Set<ZSetOperations.TypedTuple<String>> zReverseRangeWithScores(String key,
+																		  long start, long end) {
 		return redisTemplate.opsForZSet().reverseRangeWithScores(key, start,
 				end);
 	}
@@ -1210,7 +1208,7 @@ public class RedisUtils {
 	 * @param max
 	 * @return
 	 */
-	public Set<TypedTuple<String>> zReverseRangeByScoreWithScores(
+	public Set<ZSetOperations.TypedTuple<String>> zReverseRangeByScoreWithScores(
 			String key, double min, double max) {
 		return redisTemplate.opsForZSet().reverseRangeByScoreWithScores(key,
 				min, max);
@@ -1357,7 +1355,7 @@ public class RedisUtils {
 	 * @param options
 	 * @return
 	 */
-	public Cursor<TypedTuple<String>> zScan(String key, ScanOptions options) {
+	public Cursor<ZSetOperations.TypedTuple<String>> zScan(String key, ScanOptions options) {
 		return redisTemplate.opsForZSet().scan(key, options);
 	}
 	
