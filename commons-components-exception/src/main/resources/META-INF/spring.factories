@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.exception.BusinessException,\
+  com.exception.ExceptionHandler,\
+  com.exception.GlobalDefaultCatchException
+  
