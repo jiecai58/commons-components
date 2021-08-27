@@ -1,5 +1,7 @@
 package com.cache.client;
 
+import org.redisson.api.RFuture;
+import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,46 +17,44 @@ import java.util.concurrent.TimeUnit;
 public class CacheClientImpl implements CacheClient {
 
     @Resource
-    private RedisUtils redisUtils;
+    private RedissonClient redissonClient;
 
     static final Random RANDOM = new Random();
+
     @Override
-    public Boolean setNx(String configName, String key, String value, Long timeOut) throws Exception {
-        return redisUtils.setnx(key, value);
-        //setIfAbsent(key, value, timeOut, TimeUnit.SECONDS);
+    public Boolean setNx(String configName, String key, String value, Long timeOut) {
+        RFuture<Boolean> booleanRFuture = redissonClient.getBucket(key).trySetAsync(value, timeOut, TimeUnit.SECONDS);
+        return booleanRFuture.isSuccess();
     }
 
     @Override
-    public Object getCache(String configName, String key) throws Exception {
-        return redisUtils.get(key);
+    public Object getCache(String configName, String key) {
+        return redissonClient.getBucket(key).get();
     }
 
     @Override
-    public Boolean setCache(String configName, String key, String value, Long timeOut) throws Exception {
+    public Boolean setCache(String configName, String key, String value, Long timeOut) {
         if (timeOut == 1) {
-            redisUtils.set(key, value);
+            redissonClient.getBucket(key).set(value);
         } else {
-            redisUtils.setEx(key, value, timeOut + RANDOM.nextInt(10), TimeUnit.SECONDS);
+            redissonClient.getBucket(key).set(value, timeOut + RANDOM.nextInt(10), TimeUnit.SECONDS);
         }
         return true;
     }
 
     @Override
-    public Boolean deleteCache(String configName, String key) throws Exception {
-         redisUtils.delete(key);
-         return true;
+    public Boolean deleteCache(String configName, String key) {
+        return redissonClient.getBucket(key).delete();
     }
 
     @Override
-    public Map<String, String> multiGet(String configName, Set<String> keys) throws Exception {
-         redisUtils.multiGet(keys);
-         return null;
+    public Map<String, String> multiGet(String configName, Set<String> keys) {
+        return null;
     }
 
     @Override
-    public Boolean multiSet(String configName, Map<String, String> map, Long timeOut, TimeUnit timeUnit) throws Exception {
+    public Boolean multiSet(String configName, Map<String, String> map, Long timeOut, TimeUnit timeUnit) {
         //multiSet(map, timeOut, timeUnit);
-        redisUtils.multiSet(map);
         return null;
     }
 
