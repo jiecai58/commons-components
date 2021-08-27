@@ -2,7 +2,6 @@ package com.idempotent;
 
 import com.idempotent.aspect.IdempotentAspect;
 import com.idempotent.cache.IdempotentCache;
-import com.idempotent.cache.RenaultIdempotentCache;
 import com.idempotent.expression.IdempotentKeyResolver;
 import com.idempotent.properties.IdempotentProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
