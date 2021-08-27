@@ -1,5 +1,7 @@
 package com.exception;
 
+import com.dto.facade.response.BizResponse;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

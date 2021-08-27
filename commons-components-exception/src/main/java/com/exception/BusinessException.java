@@ -1,5 +1,7 @@
 package com.exception;
 
+import com.extension.enums.BizErrorCodeEnum;
+
 /**
  * @author Jie.cai58@gmail.com
  * @date 2014/9/19 20:49

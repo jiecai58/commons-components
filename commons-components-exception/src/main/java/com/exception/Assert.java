@@ -1,5 +1,7 @@
 package com.exception;
 
+import com.extension.BizException;
+
 import java.util.Collection;
 import java.util.Map;
 
