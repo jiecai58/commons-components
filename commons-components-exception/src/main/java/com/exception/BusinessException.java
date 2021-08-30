@@ -1,6 +1,6 @@
 package com.exception;
 
-import com.extension.enums.BizErrorCodeEnum;
+import com.extension.enums.BizEnum;
 
 /**
  * @author Jie.cai58@gmail.com
@@ -20,18 +20,20 @@ public class BusinessException extends BaseException {
 
     public BusinessException(long code, String message) {
         super(code, message);
+        this.message = message;
     }
 
     public BusinessException(long code, String message, Throwable cause) {
         super(code, message, cause);
+        this.message = message;
     }
 
-    public BusinessException(BizErrorCodeEnum BizErrorCodeEnum) {
-        this(BizErrorCodeEnum.getCode(), BizErrorCodeEnum.getDesc());
+    public BusinessException(BizEnum bizEnum) {
+        this(bizEnum.getCode(), bizEnum.getDesc());
     }
 
-    public BusinessException(BizErrorCodeEnum BizErrorCodeEnum, Throwable cause) {
-        this(BizErrorCodeEnum.getCode(), BizErrorCodeEnum.getDesc(), cause);
+    public BusinessException(BizEnum bizEnum, Throwable cause) {
+        this(bizEnum.getCode(), bizEnum.getDesc(), cause);
     }
 
     @Override
