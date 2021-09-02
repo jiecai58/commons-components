@@ -3,10 +3,7 @@ package com.dto.facade.response;
 
 import com.extension.enums.BizEnum;
 import com.extension.enums.BizErrorCodeEnum;
-import jdk.nashorn.internal.objects.annotations.Getter;
-import jdk.nashorn.internal.objects.annotations.Setter;
 import lombok.Data;
-import lombok.ToString;
 
 import java.io.Serializable;
 

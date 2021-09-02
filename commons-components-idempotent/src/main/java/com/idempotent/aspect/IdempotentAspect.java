@@ -3,21 +3,9 @@ package com.idempotent.aspect;
 
 import com.idempotent.annotation.Idempotent;
 import com.idempotent.cache.IdempotentCache;
-import com.idempotent.exception.IdempotentException;
-import com.util.encrypt.oneway.Md5Util;
-import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
-import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
+import com.sun.org.slf4j.internal.Logger;
+import com.sun.org.slf4j.internal.LoggerFactory;
 
-import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
@@ -29,9 +17,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * IdempotentAspect
  */
-@Slf4j
 @Aspect
 public class IdempotentAspect {
+    private static final Logger logger = LoggerFactory.getLogger(IdempotentAspect.class);
 
     private static final ThreadLocal<Map<String, Object>> THREAD_CACHE = ThreadLocal.withInitial(HashMap::new);
 
@@ -81,7 +69,7 @@ public class IdempotentAspect {
 
         //为避免key值过长，使用md5
         String md5Key = Md5Util.encrypt(key);
-        log.info("[idempotent] 创建幂等校验key，原key：[{}],md5Key [{}]", key, md5Key);
+        logger.info("[idempotent] 创建幂等校验key，原key：[{}],md5Key [{}]", key, md5Key);
 
         long expireTime = idempotent.expireTime();
         String info = idempotent.info();
@@ -102,7 +90,7 @@ public class IdempotentAspect {
                         timeUnit, LocalDateTime.now().toString());
             }
         } catch (Exception e) {
-            log.warn("[idempotent] 重复请求，原key：[{}],md5Key [{}]", key, md5Key);
+            logger.warn("[idempotent] 重复请求，原key：[{}],md5Key [{}]", key, md5Key);
             throw new IdempotentException("[idempotent]:" + info);
         }
         Map<String, Object> map = THREAD_CACHE.get();
@@ -121,7 +109,7 @@ public class IdempotentAspect {
         boolean delKey = (boolean) map.get(DELKEY);
         if (delKey) {
             idempotentCache.del(key);
-            log.info("[idempotent]:has removed key={}", key);
+            logger.info("[idempotent]:has removed key={}", key);
         }
         THREAD_CACHE.remove();
     }

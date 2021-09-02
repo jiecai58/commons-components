@@ -31,14 +31,14 @@
     </modules>
 
     <properties>
-        <spring.boot.version>2.0.3.RELEASE</spring.boot.version>
+        <spring.boot.version>2.5.4</spring.boot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <commons.cache.version>1.0.1-2021082116</commons.cache.version>
+        <commons.cache.version>0.0.1-SNAPSHOT</commons.cache.version>
         <commons.dto.version>0.0.1-SNAPSHOT</commons.dto.version>
-        <commons.util.version>0.0.1-2021081715</commons.util.version>
+        <commons.util.version>0.0.1-SNAPSHOT</commons.util.version>
         <commons.catchlog.version>0.0.1-SNAPSHOT</commons.catchlog.version>
-        <commons.idempotent.version>2021081001</commons.idempotent.version>
-        <commons.exception.version>1.0.1-2021082616</commons.exception.version>
+        <commons.idempotent.version>0.0.1-SNAPSHOT</commons.idempotent.version>
+        <commons.exception.version>0.0.1-SNAPSHOT</commons.exception.version>
         <commons.statemachine.version>0.0.1-SNAPSHOT</commons.statemachine.version>
         <commons.test.container.version>0.0.1-SNAPSHOT</commons.test.container.version>
         <commons.mybatis.nterceptor.version>0.0.1-SNAPSHOT</commons.mybatis.nterceptor.version>
